@@ -6,35 +6,31 @@ import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
-    var count=0
+
+    var countmap= mutableMapOf<String, Int>()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
 val n=findViewById<TextInputLayout>(R.id.textInputLayout)
         val btn=findViewById<TextView>(R.id.t2)
         val c=findViewById<TextView>(R.id.t3)
-        val nameMap= mutableMapOf<String,Int>()
 
         btn.setOnClickListener {
 
             val username=n.editText?.text?.toString()
-
+            val name=
                 if(username.isNullOrEmpty()) "Somebody"
             else username
 
-            if(username in nameMap)
-            {
-                count= nameMap[username.toString()]!!
-                nameMap[username.toString()]=count+1
-            }
-            else
-            {
-                nameMap.put(username.toString(),+1)
-            }
-            c.text = "$username clicked ${nameMap[username]} times"
+         val oldcount=countmap[name] ?: 0
+            val newcount=oldcount+1
+            countmap[name]=newcount
+
+            c.text = "$name clicked $newcount times"
 
 
 
@@ -53,3 +49,5 @@ val n=findViewById<TextInputLayout>(R.id.textInputLayout)
 
     }
 }
+
+
